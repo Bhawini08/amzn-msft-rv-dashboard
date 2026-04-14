@@ -411,11 +411,13 @@ def compute_copula_signal(ua, ub, copula):
 
 @st.cache_data(show_spinner=False)
 def load_model():
-    end   = datetime.today().strftime("%Y-%m-%d")
-    start = (pd.Timestamp(end) - pd.DateOffset(years=6)).strftime("%Y-%m-%d")
-    prices = yf.download(["AMZN","MSFT"], start=start, end=end,
-                          auto_adjust=True, progress=False)["Close"].dropna()
-    log_ret = np.log(prices/prices.shift(1)).dropna()
+    prices = yf.download(["AMZN","MSFT"], period="6y",
+                          auto_adjust=True, progress=False)["Close"]
+    # Handle MultiIndex columns from newer yfinance versions
+    if isinstance(prices.columns, pd.MultiIndex):
+        prices = prices.droplevel(0, axis=1)
+    prices = prices[["AMZN","MSFT"]].dropna()
+    log_ret = np.log(prices / prices.shift(1)).dropna()
 
     ga = fit_gjr_garch(log_ret["AMZN"], "AMZN")
     gb = fit_gjr_garch(log_ret["MSFT"], "MSFT")
@@ -443,8 +445,10 @@ def load_model():
 @st.cache_data(show_spinner=False)
 def load_prices():
     p = yf.download(["AMZN","MSFT"], period="5y",
-                     auto_adjust=True, progress=False)["Close"].dropna()
-    return p
+                     auto_adjust=True, progress=False)["Close"]
+    if isinstance(p.columns, pd.MultiIndex):
+        p = p.droplevel(0, axis=1)
+    return p[["AMZN","MSFT"]].dropna()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
