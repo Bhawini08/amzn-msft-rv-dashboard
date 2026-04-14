@@ -88,8 +88,8 @@ html, body, [class*="css"] {
 }
 
 .kpi-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #1c2128;
+    border: 1px solid #444c56;
     border-radius: 10px;
     padding: 16px 18px;
     position: relative;
@@ -99,17 +99,22 @@ html, body, [class*="css"] {
 .kpi-card::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 0; right: 0; height: 2px;
+    bottom: 0; left: 0; right: 0; height: 3px;
 }
 
-.kpi-card.blue::after   { background: var(--accent); }
-.kpi-card.green::after  { background: var(--green); }
-.kpi-card.red::after    { background: var(--red); }
-.kpi-card.yellow::after { background: var(--yellow); }
+.kpi-card.blue::after   { background: #58a6ff; }
+.kpi-card.green::after  { background: #3fb950; }
+.kpi-card.red::after    { background: #f85149; }
+.kpi-card.yellow::after { background: #e3b341; }
+
+.kpi-card.yellow { border-color: #e3b341; background: #211d0e; }
+.kpi-card.green  { border-color: #3fb950; background: #0d1f10; }
+.kpi-card.blue   { border-color: #58a6ff; background: #0d1526; }
+.kpi-card.red    { border-color: #f85149; background: #200d0d; }
 
 .kpi-label {
     font-size: 0.72rem;
-    color: var(--muted);
+    color: #adbac7;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     margin-bottom: 6px;
@@ -119,14 +124,14 @@ html, body, [class*="css"] {
     font-family: 'Space Mono', monospace;
     font-size: 1.6rem;
     font-weight: 700;
-    color: var(--text);
+    color: #ffffff;
     line-height: 1;
     margin-bottom: 4px;
 }
 
 .kpi-sub {
     font-size: 0.75rem;
-    color: var(--muted);
+    color: #adbac7;
 }
 
 .section-header {
@@ -627,9 +632,9 @@ with col1:
 with col2:
     sig = tr.signal
     fig = go.Figure()
-    fig.add_hrect(y0=0, y1=entry_lo, fillcolor="rgba(248,81,73,0.12)", line_width=0)
-    fig.add_hrect(y0=entry_hi, y1=1.0, fillcolor="rgba(63,185,80,0.12)", line_width=0)
-    fig.add_hrect(y0=0.15, y1=0.85, fillcolor="rgba(139,148,158,0.04)", line_width=0)
+    fig.add_hrect(y0=0, y1=entry_lo, fillcolor="rgba(248,81,73,0.08)", line_width=0)
+    fig.add_hrect(y0=entry_hi, y1=1.0, fillcolor="rgba(63,185,80,0.08)", line_width=0)
+    fig.add_hrect(y0=0.15, y1=0.85, fillcolor="rgba(139,148,158,0.03)", line_width=0)
     fig.add_trace(go.Scatter(
         x=sig.index, y=sig.values, mode="lines",
         line=dict(color="#d2a8ff", width=1.5), name="Signal",
@@ -750,8 +755,20 @@ with col4:
         </tr>"""
     regime_html += "</table></div>"
     st.components.v1.html(
-        f"<style>body{{margin:0;background:#0d1117;}}</style>{regime_html}",
-        height=520, scrolling=True
+        f"""<style>
+        body{{margin:0; padding:0; background:#0d1117; font-family:'DM Sans',sans-serif;}}
+        table{{width:100%; border-collapse:collapse; font-size:13px;}}
+        td{{padding:7px 10px; border-bottom:1px solid #30363d; color:#e6edf3;}}
+        td:first-child{{color:#adbac7;}}
+        th{{padding:6px 10px; color:#adbac7; font-weight:500; font-size:12px;
+            border-bottom:1px solid #30363d; text-align:left;}}
+        .header{{font-family:'Space Mono',monospace; font-size:11px; color:#58a6ff;
+                 letter-spacing:1px; margin-bottom:10px; margin-top:4px;}}
+        .card{{background:#161b22; border:1px solid #30363d; border-radius:10px;
+               padding:14px 16px;}}
+        </style>
+        <div class="card">{regime_html.replace('<div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:16px; font-family:\'DM Sans\',sans-serif;">', '').rstrip('</div>')}</div>""",
+        height=540, scrolling=True
     )
 
 
