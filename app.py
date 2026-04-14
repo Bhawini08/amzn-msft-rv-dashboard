@@ -684,7 +684,7 @@ with col3:
     fig.add_trace(go.Surface(
         x=g, y=g, z=dens, colorscale="Plasma", opacity=0.9,
         colorbar=dict(title="c(u,v)", tickfont=dict(color="#8b949e"),
-                      titlefont=dict(color="#8b949e"), len=0.6),
+                      title_font=dict(color="#8b949e"), len=0.6),
     ))
     fig.add_trace(go.Scatter3d(
         x=[float(tr.u_amzn.iloc[-1])],
