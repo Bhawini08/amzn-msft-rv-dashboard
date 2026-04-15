@@ -742,7 +742,7 @@ with col_dist:
     fig = go.Figure(go.Bar(
         x=labels, y=counts.values,
         marker_color=bin_colors, text=counts.values.astype(int),
-        textposition="outside", textfont=dict(color=TEXT, size=10),
+        textposition="outside",
     ))
     fig.update_layout(
         title=dict(text="Signal Zone Distribution (Waterfall)", font=dict(color=TEXT, size=12)),
