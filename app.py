@@ -741,8 +741,9 @@ with col_dist:
     counts = pd.cut(sig.dropna(), bins=bins, labels=labels).value_counts().reindex(labels).fillna(0)
     fig = go.Figure(go.Bar(
         x=labels, y=counts.values,
-        marker_color=bin_colors, text=counts.values.astype(int),
-        textposition="outside",
+        marker=dict(color=bin_colors),
+        text=counts.values.astype(int),
+        textposition="auto",
     ))
     fig.update_layout(
         title=dict(text="Signal Zone Distribution (Waterfall)", font=dict(color=TEXT, size=12)),
