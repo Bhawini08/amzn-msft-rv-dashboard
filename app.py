@@ -466,8 +466,6 @@ def _base_layout(**kwargs):
         plot_bgcolor=DARK,
         font=dict(color=TEXT, family="Space Mono, monospace", size=11),
         margin=dict(l=40, r=20, t=36, b=36),
-        xaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True),
-        yaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True),
         legend=dict(bgcolor="rgba(0,0,0,0)", bordercolor=BORDER, borderwidth=1),
     )
     base.update(kwargs)
