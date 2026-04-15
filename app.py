@@ -397,7 +397,7 @@ def compute_copula_signal(u_a, u_b, copula: CopulaFitResult):
 # DATA LOADING & CACHING
 # ──────────────────────────────────────────────────────────────────────────────
 
-@st.cache_data(show_spinner=False, ttl=3600)
+@st.cache_resource(show_spinner=False)
 def load_prices():
     p = yf.download(["AMZN", "MSFT"], period="6y",
                     auto_adjust=True, progress=False)["Close"]
@@ -406,7 +406,7 @@ def load_prices():
     return p[["AMZN", "MSFT"]].dropna()
 
 
-@st.cache_data(show_spinner=False, ttl=3600)
+@st.cache_resource(show_spinner=False)
 def load_model():
     prices = load_prices()
     log_ret = np.log(prices / prices.shift(1)).dropna()
