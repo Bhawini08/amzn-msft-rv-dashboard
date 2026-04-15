@@ -737,7 +737,7 @@ with col_z:
 with col_dist:
     bins = [-np.inf, 0.05, 0.10, 0.15, 0.85, 0.90, 0.95, np.inf]
     labels = ["<5%", "5–10%", "10–15%", "15–85%", "85–90%", "90–95%", ">95%"]
-    bin_colors = [RED, "#f85149cc", "#ffa65788", MUTED, "#3fb95088", "#3fb950cc", GREEN]
+    bin_colors = [RED, "rgba(248,81,73,0.8)", "rgba(255,166,87,0.5)", MUTED, "rgba(63,185,80,0.5)", "rgba(63,185,80,0.8)", GREEN]
     counts = pd.cut(sig.dropna(), bins=bins, labels=labels).value_counts().reindex(labels).fillna(0)
     fig = go.Figure(go.Bar(
         x=labels, y=counts.values,
