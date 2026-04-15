@@ -461,7 +461,7 @@ def load_model():
 # ──────────────────────────────────────────────────────────────────────────────
 
 def _base_layout(**kwargs):
-    return dict(
+    base = dict(
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor=DARK,
         font=dict(color=TEXT, family="Space Mono, monospace", size=11),
@@ -469,8 +469,9 @@ def _base_layout(**kwargs):
         xaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True),
         yaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True),
         legend=dict(bgcolor="rgba(0,0,0,0)", bordercolor=BORDER, borderwidth=1),
-        **kwargs,
     )
+    base.update(kwargs)
+    return base
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -585,7 +586,8 @@ with col_dcc:
                   annotation_font_color=RED)
     fig.update_layout(
         title=dict(text="DCC Time-Varying Correlation (ρ_t)", font=dict(color=TEXT, size=12)),
-        yaxis_title="ρ_t", yaxis=dict(range=[0, 1], gridcolor=BORDER),
+        yaxis=dict(range=[0, 1], gridcolor=BORDER, zeroline=False, showgrid=True, title="ρ_t"),
+        xaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True),
         **_base_layout(height=280),
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -604,7 +606,8 @@ with col_sig:
     fig.update_layout(
         title=dict(text=f"Copula Signal — h-Function  (entry: <{entry_thresh} or >{1-entry_thresh})",
                    font=dict(color=TEXT, size=12)),
-        yaxis_title="h_t", yaxis=dict(range=[0, 1], gridcolor=BORDER),
+        yaxis=dict(range=[0, 1], gridcolor=BORDER, zeroline=False, showgrid=True, title="h_t"),
+        xaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True),
         **_base_layout(height=280),
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -727,7 +730,8 @@ with col_z:
     fig.update_layout(
         title=dict(text=f"Beta-Adjusted Spread Z-Score  |  Latest: {z_latest:.2f}",
                    font=dict(color=TEXT, size=12)),
-        yaxis_title="Z-score",
+        yaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True, title="Z-score"),
+        xaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True),
         **_base_layout(height=280),
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -744,7 +748,8 @@ with col_dist:
     ))
     fig.update_layout(
         title=dict(text="Signal Zone Distribution (Waterfall)", font=dict(color=TEXT, size=12)),
-        yaxis_title="Count", xaxis_title="Signal bucket",
+        yaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True, title="Count"),
+        xaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True, title="Signal bucket"),
         **_base_layout(height=280),
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -768,7 +773,8 @@ with col_v:
     ))
     fig.update_layout(
         title=dict(text=f"Annualized Conditional Volatility (GJR-GARCH)", font=dict(color=TEXT, size=12)),
-        yaxis_title="Ann. Vol", yaxis_tickformat=".0%",
+        yaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True, title="Ann. Vol", tickformat=".0%"),
+        xaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True),
         **_base_layout(height=280),
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -784,7 +790,8 @@ with col_h:
     fig.update_layout(
         title=dict(text=f"Time-Varying Hedge Ratio β_t  |  Latest: {hedge_latest:.4f}",
                    font=dict(color=TEXT, size=12)),
-        yaxis_title="Hedge ratio β_t",
+        yaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True, title="Hedge ratio β_t"),
+        xaxis=dict(gridcolor=BORDER, zeroline=False, showgrid=True),
         **_base_layout(height=280),
     )
     st.plotly_chart(fig, use_container_width=True)
