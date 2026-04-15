@@ -5,3 +5,4 @@ pandas>=2.1.0
 scipy>=1.11.0
 arch>=6.3.0
 yfinance>=0.2.36
+plotly==5.24.0
